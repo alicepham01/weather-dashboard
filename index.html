@@ -99,25 +99,24 @@
       </button>
     </div>
 
-    <!-- Charts -->
     <div class="mt-8 grid grid-cols-1 lg:grid-cols-5 gap-6">
-      <!-- Weekly Attendance -->
-      <div class="lg:col-span-3 bg-gray-800 p-6 rounded-2xl shadow-md h-72 max-h-80">
-        <h2 class="text-xl font-semibold mb-4 text-white">Weekly Attendance Trend</h2>
-        <div class="h-52">
-          <canvas id="attendance-chart"></canvas>
+    <!-- Weekly Attendance -->
+    <div class="lg:col-span-3 bg-gray-800 p-6 rounded-2xl shadow-md h-40">
+        <h2 class="text-lg font-semibold mb-2 text-white">Weekly Attendance Trend</h2>
+        <div class="h-24">
+            <canvas id="attendance-chart"></canvas>
         </div>
-      </div>
-      
-      <!-- Visitors by Weather -->
-      <div class="lg:col-span-2 bg-gray-800 p-6 rounded-2xl shadow-md h-72 max-h-80">
-        <h2 class="text-xl font-semibold mb-4 text-white">Visitors by Weather</h2>
-        <div class="h-52">
-          <canvas id="weather-attendance-chart"></canvas>
-        </div>
-      </div>
     </div>
-  </div>
+    
+    <!-- Visitors by Weather -->
+    <div class="lg:col-span-2 bg-gray-800 p-6 rounded-2xl shadow-md h-40">
+        <h2 class="text-lg font-semibold mb-2 text-white">Visitors by Weather</h2>
+        <div class="h-24">
+            <canvas id="weather-attendance-chart"></canvas>
+        </div>
+    </div>
+</div>
+
 
   <script>
     // DOM Elements
