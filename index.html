@@ -1,325 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Park Attendance & Weather Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-    .dashboard-card {
-      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    }
-    .dashboard-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Park Attendance & Weather Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@^1/dist/chartjs-chart-matrix.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .dashboard-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body class="bg-gray-900 text-gray-200">
 
-  <div class="container mx-auto p-4 sm:p-6 lg:p-8">
-    <header class="mb-8">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-        <div>
-          <h1 class="text-3xl sm:text-4xl font-bold text-white">Park Analytics Dashboard</h1>
-          <p class="text-gray-400 mt-1">Live data for Bien Hoa, Dong Nai, Vietnam.</p>
-        </div>
-        <div id="clock" class="mt-4 sm:mt-0 text-right bg-gray-800 px-4 py-2 rounded-lg shadow-inner">
-          <p id="time" class="text-2xl font-semibold text-white">19:08:01</p>
-          <p id="date" class="text-sm text-gray-400">Sunday, 14 September 2025</p>
-        </div>
-      </div>
-    </header>
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="mb-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                <div>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-white">Park Analytics Dashboard</h1>
+                    <p class="text-gray-400 mt-1">Live data for Bien Hoa, Dong Nai, Vietnam.</p>
+                </div>
+                <div id="clock" class="mt-4 sm:mt-0 text-right bg-gray-800 px-4 py-2 rounded-lg shadow-inner">
+                    <p id="time" class="text-2xl font-semibold text-white">19:22:32</p>
+                    <p id="date" class="text-sm text-gray-400">Sunday, 14 September 2025</p>
+                </div>
+            </div>
+        </header>
 
-    <!-- Top Stats -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
-        <div>
-          <p class="text-gray-400 text-sm font-medium">Current Visitors</p>
-          <p id="attendance" class="text-3xl font-bold text-white">472</p>
-        </div>
-        <div class="text-5xl">👥</div>
-      </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm font-medium">Current Visitors</p>
+                    <p id="attendance" class="text-3xl font-bold text-white">472</p>
+                </div>
+                <div class="text-5xl">👥</div>
+            </div>
 
-      <div id="weather-card" class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
-        <div>
-          <p class="text-gray-400 text-sm font-medium">Weather</p>
-          <p id="weather-condition" class="text-2xl font-bold text-white">Sunny</p>
-        </div>
-        <div id="weather-icon" class="text-5xl">☀️</div>
-      </div>
+            <div id="weather-card" class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm font-medium">Weather</p>
+                    <p id="weather-condition" class="text-2xl font-bold text-white">Sunny</p>
+                </div>
+                <div id="weather-icon" class="text-5xl">☀️</div>
+            </div>
 
-      <div class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
-        <div>
-          <p class="text-gray-400 text-sm font-medium">Temperature</p>
-          <p id="temperature" class="text-3xl font-bold text-white">28°C</p>
-        </div>
-        <div class="text-5xl">🌡️</div>
-      </div>
+            <div class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm font-medium">Temperature</p>
+                    <p id="temperature" class="text-3xl font-bold text-white">28°C</p>
+                </div>
+                <div class="text-5xl">🌡️</div>
+            </div>
 
-      <div class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
-        <div>
-          <p class="text-gray-400 text-sm font-medium">Rel. Humidity</p>
-          <p id="humidity" class="text-3xl font-bold text-white">65%</p>
-        </div>
-        <div class="text-5xl">💧</div>
-      </div>
+            <div class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm font-medium">Rel. Humidity</p>
+                    <p id="humidity" class="text-3xl font-bold text-white">65%</p>
+                </div>
+                <div class="text-5xl">💧</div>
+            </div>
 
-      <div class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
-        <div>
-          <p class="text-gray-400 text-sm font-medium">Wind Speed</p>
-          <p id="wind-speed" class="text-3xl font-bold text-white">3.0 m/s</p>
-        </div>
-        <div class="text-5xl">🌬️</div>
-      </div>
+            <div class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm font-medium">Wind Speed</p>
+                    <p id="wind-speed" class="text-3xl font-bold text-white">3.0 m/s</p>
+                </div>
+                <div class="text-5xl">🌬️</div>
+            </div>
 
-      <div class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
-        <div>
-          <p class="text-gray-400 text-sm font-medium">Solar Radiation</p>
-          <p id="solar-radiation" class="text-3xl font-bold text-white">850 W/m²</p>
+            <div class="dashboard-card bg-gray-800 p-6 rounded-2xl shadow-md flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm font-medium">Solar Radiation</p>
+                    <p id="solar-radiation" class="text-3xl font-bold text-white">850 W/m²</p>
+                </div>
+                <div class="text-5xl">🔆</div>
+            </div>
         </div>
-        <div class="text-5xl">🔆</div>
-      </div>
-    </div>
-    
-    <!-- Buttons -->
-    <div class="mt-6 bg-gray-800 p-4 rounded-2xl shadow-md flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
-      <button id="refresh-data" class="w-full sm:w-auto flex-grow bg-blue-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200">
-        Refresh Data
-      </button>
-      <button id="export-csv" class="w-full sm:w-auto flex-grow bg-green-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-green-600 transition-colors duration-200">
-        Export to CSV
-      </button>
-    </div>
 
-    <div class="mt-8 grid grid-cols-1 lg:grid-cols-5 gap-6">
-    <!-- Weekly Attendance -->
-    <div class="lg:col-span-3 bg-gray-800 p-6 rounded-2xl shadow-md h-40">
-        <h2 class="text-lg font-semibold mb-2 text-white">Weekly Attendance Trend</h2>
-        <div class="h-24">
-            <canvas id="attendance-chart"></canvas>
+        <div class="mt-6 bg-gray-800 p-6 rounded-2xl shadow-md h-48">
+            <h2 class="text-xl font-semibold mb-2 text-white">Visitor Density Heatmap</h2>
+            <canvas id="heatmap-chart"></canvas>
         </div>
-    </div>
-    
-    <!-- Visitors by Weather -->
-    <div class="lg:col-span-2 bg-gray-800 p-6 rounded-2xl shadow-md h-40">
-        <h2 class="text-lg font-semibold mb-2 text-white">Visitors by Weather</h2>
-        <div class="h-24">
-            <canvas id="weather-attendance-chart"></canvas>
+        
+        <div class="mt-6 bg-gray-800 p-4 rounded-2xl shadow-md flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+             <button id="refresh-data" class="w-full sm:w-auto flex-grow bg-blue-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200">
+                Refresh Data
+            </button>
+            <button id="export-csv" class="w-full sm:w-auto flex-grow bg-green-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-green-600 transition-colors duration-200">
+                Export to CSV
+            </button>
+        </div>
+
+
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <div class="lg:col-span-5 bg-gray-800 p-6 rounded-2xl shadow-md h-56">
+                <h2 class="text-xl font-semibold mb-4 text-white">Weekly Attendance Trend</h2>
+                <canvas id="attendance-chart"></canvas>
+            </div>
         </div>
     </div>
-</div>
 
+    <script>
+        // DOM Elements
+        const timeEl = document.getElementById('time');
+        const dateEl = document.getElementById('date');
+        const weatherConditionEl = document.getElementById('weather-condition');
+        const weatherIconEl = document.getElementById('weather-icon');
+        const temperatureEl = document.getElementById('temperature');
+        const attendanceEl = document.getElementById('attendance');
+        const humidityEl = document.getElementById('humidity');
+        const windSpeedEl = document.getElementById('wind-speed');
+        const solarRadiationEl = document.getElementById('solar-radiation');
+        const refreshButton = document.getElementById('refresh-data');
+        const exportButton = document.getElementById('export-csv');
 
-  <script>
-    // DOM Elements
-    const timeEl = document.getElementById('time');
-    const dateEl = document.getElementById('date');
-    const weatherConditionEl = document.getElementById('weather-condition');
-    const weatherIconEl = document.getElementById('weather-icon');
-    const temperatureEl = document.getElementById('temperature');
-    const attendanceEl = document.getElementById('attendance');
-    const humidityEl = document.getElementById('humidity');
-    const windSpeedEl = document.getElementById('wind-speed');
-    const solarRadiationEl = document.getElementById('solar-radiation');
-    const refreshButton = document.getElementById('refresh-data');
-    const exportButton = document.getElementById('export-csv');
+        // Chart contexts
+        const attendanceCtx = document.getElementById('attendance-chart').getContext('2d');
+        const heatmapCtx = document.getElementById('heatmap-chart').getContext('2d');
 
-    // Chart contexts
-    const attendanceCtx = document.getElementById('attendance-chart').getContext('2d');
-    const weatherAttendanceCtx = document.getElementById('weather-attendance-chart').getContext('2d');
+        // Data store
+        let dashboardData = [];
+        let heatmapData = [];
+        let attendanceChart, heatmapChart;
 
-    // Data store
-    let dashboardData = [];
-    let attendanceChart, weatherAttendanceChart;
+        // --- Data Generation ---
+        const weatherTypes = [
+            { condition: 'Sunny', icon: '☀️', baseTemp: 28, tempRange: 6, baseAttendance: 400, attendanceRange: 150, humidity: [40, 60], wind: [1, 4], solar: [800, 1000] },
+            { condition: 'Cloudy', icon: '☁️', baseTemp: 24, tempRange: 5, baseAttendance: 250, attendanceRange: 100, humidity: [60, 80], wind: [2, 5], solar: [300, 500] },
+            { condition: 'Rainy', icon: '🌧️', baseTemp: 20, tempRange: 4, baseAttendance: 50, attendanceRange: 50, humidity: [80, 95], wind: [3, 8], solar: [100, 200] },
+            { condition: 'Windy', icon: '💨', baseTemp: 22, tempRange: 5, baseAttendance: 150, attendanceRange: 80, humidity: [50, 70], wind: [6, 12], solar: [400, 700] }
+        ];
+        
+        const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-    // --- Data Generation ---
-    const weatherTypes = [
-      { condition: 'Sunny', icon: '☀️', baseTemp: 28, tempRange: 6, baseAttendance: 400, attendanceRange: 150, humidity: [40, 60], wind: [1, 4], solar: [800, 1000] },
-      { condition: 'Cloudy', icon: '☁️', baseTemp: 24, tempRange: 5, baseAttendance: 250, attendanceRange: 100, humidity: [60, 80], wind: [2, 5], solar: [300, 500] },
-      { condition: 'Rainy', icon: '🌧️', baseTemp: 20, tempRange: 4, baseAttendance: 50, attendanceRange: 50, humidity: [80, 95], wind: [3, 8], solar: [100, 200] },
-      { condition: 'Windy', icon: '💨', baseTemp: 22, tempRange: 5, baseAttendance: 150, attendanceRange: 80, humidity: [50, 70], wind: [6, 12], solar: [400, 700] }
-    ];
-    
-    const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-    function getRandomInRange(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    function generateRandomData() {
-      const weather = weatherTypes[Math.floor(Math.random() * weatherTypes.length)];
-      const tempFluctuation = getRandomInRange(-weather.tempRange / 2, weather.tempRange / 2);
-      const attendanceFluctuation = getRandomInRange(-weather.attendanceRange / 2, weather.attendanceRange / 2);
-
-      const temperature = Math.round(weather.baseTemp + tempFluctuation);
-      const attendance = Math.round(weather.baseAttendance + attendanceFluctuation);
-      const humidity = Math.round(getRandomInRange(weather.humidity[0], weather.humidity[1]));
-      const windSpeed = getRandomInRange(weather.wind[0], weather.wind[1]).toFixed(1);
-      const solarRadiation = Math.round(getRandomInRange(weather.solar[0], weather.solar[1]));
-
-      return {
-        condition: weather.condition,
-        icon: weather.icon,
-        temperature: Math.max(15, temperature),
-        attendance: Math.max(10, attendance),
-        humidity: humidity,
-        windSpeed: windSpeed,
-        solarRadiation: solarRadiation
-      };
-    }
-    
-    function generateWeeklyData() {
-      dashboardData = daysOfWeek.map(day => {
-        const data = generateRandomData();
-        return { day, ...data };
-      });
-    }
-
-    // --- UI Updates ---
-    function updateDashboard() {
-      const currentData = dashboardData[dashboardData.length - 1];
-
-      weatherConditionEl.textContent = currentData.condition;
-      weatherIconEl.textContent = currentData.icon;
-
-      animateValue(attendanceEl, parseInt(attendanceEl.textContent) || 0, currentData.attendance, 500);
-      animateValue(temperatureEl, parseInt(temperatureEl.textContent) || 0, currentData.temperature, 500, '°C');
-      animateValue(humidityEl, parseInt(humidityEl.textContent) || 0, currentData.humidity, 500, '%');
-      animateValue(windSpeedEl, parseFloat(windSpeedEl.textContent) || 0, parseFloat(currentData.windSpeed), 500, ' m/s', 'float');
-      animateValue(solarRadiationEl, parseInt(solarRadiationEl.textContent) || 0, currentData.solarRadiation, 500, ' W/m²');
-
-      updateCharts();
-    }
-
-    // --- Clock ---
-    function updateClock() {
-      const now = new Date();
-      const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Ho_Chi_Minh' };
-      const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Ho_Chi_Minh' };
-
-      dateEl.textContent = now.toLocaleDateString('en-US', optionsDate);
-      timeEl.textContent = now.toLocaleTimeString('en-US', optionsTime);
-    }
-
-    // --- Charting ---
-    function createCharts() {
-      const chartTextColor = 'rgb(209, 213, 219)';
-      const chartGridColor = 'rgba(255, 255, 255, 0.1)';
-
-      attendanceChart = new Chart(attendanceCtx, {
-        type: 'line',
-        data: { labels: [], datasets: [{ label: 'Visitors', data: [], borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.2)', tension: 0.4, fill: true }] },
-        options: { 
-          responsive: true, 
-          maintainAspectRatio: false, 
-          scales: { 
-            y: { beginAtZero: true, grid: { color: chartGridColor }, ticks: { color: chartTextColor } },
-            x: { grid: { color: chartGridColor }, ticks: { color: chartTextColor } }
-          }, 
-          plugins: { legend: { display: false } } 
+        function getRandomInRange(min, max) {
+            return Math.random() * (max - min) + min;
         }
-      });
 
-      weatherAttendanceChart = new Chart(weatherAttendanceCtx, {
-        type: 'doughnut',
-        data: {
-          labels: [],
-          datasets: [{
-            label: 'Visitors by Weather', data: [],
-            backgroundColor: [ 'rgba(251, 191, 36, 0.8)', 'rgba(156, 163, 175, 0.8)', 'rgba(96, 165, 250, 0.8)', 'rgba(129, 140, 248, 0.8)' ],
-            borderColor: '#1f2937',
-            borderWidth: 4
-          }]
-        },
-        options: { 
-          responsive: true, 
-          maintainAspectRatio: false, 
-          plugins: { 
-            legend: { 
-              position: 'bottom',
-              labels: { color: chartTextColor }
-            } 
-          } 
+        function generateRandomData() {
+            const weather = weatherTypes[Math.floor(Math.random() * weatherTypes.length)];
+            const tempFluctuation = getRandomInRange(-weather.tempRange / 2, weather.tempRange / 2);
+            const attendanceFluctuation = getRandomInRange(-weather.attendanceRange / 2, weather.attendanceRange / 2);
+
+            const temperature = Math.round(weather.baseTemp + tempFluctuation);
+            const attendance = Math.round(weather.baseAttendance + attendanceFluctuation);
+            const humidity = Math.round(getRandomInRange(weather.humidity[0], weather.humidity[1]));
+            const windSpeed = getRandomInRange(weather.wind[0], weather.wind[1]).toFixed(1);
+            const solarRadiation = Math.round(getRandomInRange(weather.solar[0], weather.solar[1]));
+
+            return {
+                condition: weather.condition,
+                icon: weather.icon,
+                temperature: Math.max(15, temperature),
+                attendance: Math.max(10, attendance),
+                humidity: humidity,
+                windSpeed: windSpeed,
+                solarRadiation: solarRadiation
+            };
         }
-      });
-    }
+        
+        function generateWeeklyData() {
+             dashboardData = daysOfWeek.map(day => {
+                const data = generateRandomData();
+                return { day, ...data };
+            });
+        }
 
-    function updateCharts() {
-      attendanceChart.data.labels = dashboardData.map(d => d.day);
-      attendanceChart.data.datasets[0].data = dashboardData.map(d => d.attendance);
-      attendanceChart.update();
+        function generateHeatmapData() {
+            const data = [];
+            const rows = 8;
+            const cols = 20;
+            // Create a couple of random "hotspots"
+            const hotspot1 = { x: Math.random() * cols, y: Math.random() * rows, intensity: getRandomInRange(80, 100) };
+            const hotspot2 = { x: Math.random() * cols, y: Math.random() * rows, intensity: getRandomInRange(70, 90) };
 
-      const weatherSummary = dashboardData.reduce((acc, curr) => {
-        if (!acc[curr.condition]) acc[curr.condition] = 0;
-        acc[curr.condition] += curr.attendance;
-        return acc;
-      }, {});
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    // Calculate distance to hotspots to create a smooth gradient
+                    const dist1 = Math.sqrt(Math.pow(x - hotspot1.x, 2) + Math.pow(y - hotspot1.y, 2));
+                    const dist2 = Math.sqrt(Math.pow(x - hotspot2.x, 2) + Math.pow(y - hotspot2.y, 2));
+                    const val1 = hotspot1.intensity / (dist1 / 2 + 1);
+                    const val2 = hotspot2.intensity / (dist2 / 2 + 1);
+                    const baseNoise = getRandomInRange(0, 20);
+                    data.push({ x, y, v: Math.min(100, val1 + val2 + baseNoise) });
+                }
+            }
+            heatmapData = data;
+        }
 
-      weatherAttendanceChart.data.labels = Object.keys(weatherSummary);
-      weatherAttendanceChart.data.datasets[0].data = Object.values(weatherSummary);
-      weatherAttendanceChart.update();
-    }
-    
-    // --- Data Export ---
-    function exportToCSV() {
-      let csvContent = "data:text/csv;charset=utf-8,";
-      csvContent += "Day,Condition,Temperature(C),Humidity(%),WindSpeed(m/s),SolarRadiation(W/m2),Attendance\r\n";
 
-      dashboardData.forEach(row => {
-        let csvRow = [row.day, row.condition, row.temperature, row.humidity, row.windSpeed, row.solarRadiation, row.attendance].join(",");
-        csvContent += csvRow + "\r\n";
-      });
+        // --- UI Updates ---
+        function updateDashboard() {
+            const currentData = dashboardData[dashboardData.length - 1];
 
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "park_attendance_data.csv");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+            weatherConditionEl.textContent = currentData.condition;
+            weatherIconEl.textContent = currentData.icon;
 
-    // --- Helpers ---
-    function animateValue(obj, start, end, duration, unit = '', format = 'int') {
-      let startTimestamp = null;
-      const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        let currentValue = progress * (end - start) + start;
-        if (progress >= 1) currentValue = end;
-        if (format === 'float') obj.textContent = currentValue.toFixed(1) + unit;
-        else obj.textContent = Math.floor(currentValue) + unit;
-        if (progress < 1) window.requestAnimationFrame(step);
-      };
-      window.requestAnimationFrame(step);
-    }
+            animateValue(attendanceEl, parseInt(attendanceEl.textContent) || 0, currentData.attendance, 500);
+            animateValue(temperatureEl, parseInt(temperatureEl.textContent) || 0, currentData.temperature, 500, '°C');
+            animateValue(humidityEl, parseInt(humidityEl.textContent) || 0, currentData.humidity, 500, '%');
+            animateValue(windSpeedEl, parseFloat(windSpeedEl.textContent) || 0, parseFloat(currentData.windSpeed), 500, ' m/s', 'float');
+            animateValue(solarRadiationEl, parseInt(solarRadiationEl.textContent) || 0, currentData.solarRadiation, 500, ' W/m²');
 
-    // --- Initial Load ---
-    document.addEventListener('DOMContentLoaded', () => {
-      const refreshAllData = () => {
-        generateWeeklyData();
-        updateDashboard();
-      };
+            updateCharts();
+        }
 
-      createCharts();
-      refreshAllData();
-      updateClock();
+        // --- Clock ---
+        function updateClock() {
+            const now = new Date();
+            const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Ho_Chi_Minh' };
+            const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Ho_Chi_Minh' };
 
-      setInterval(refreshAllData, 30000);
-      setInterval(updateClock, 1000);
+            dateEl.textContent = now.toLocaleDateString('en-US', optionsDate);
+            timeEl.textContent = now.toLocaleTimeString('en-US', optionsTime);
+        }
 
-      refreshButton.addEventListener('click', refreshAllData);
-      exportButton.addEventListener('click', exportToCSV);
-    });
 
-  </script>
+        // --- Charting ---
+        function createCharts() {
+            const chartTextColor = 'rgb(209, 213, 219)'; // gray-300
+            const chartGridColor = 'rgba(255, 255, 255, 0.1)';
+
+            // Line Chart for Weekly Attendance
+            attendanceChart = new Chart(attendanceCtx, {
+                type: 'line',
+                data: { labels: [], datasets: [{ label: 'Visitors', data: [], borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.2)', tension: 0.4, fill: true, }] },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    scales: { 
+                        y: { beginAtZero: true, grid: { color: chartGridColor }, ticks: { color: chartTextColor } },
+                        x: { grid: { color: chartGridColor }, ticks: { color: chartTextColor } }
+                    }, 
+                    plugins: { legend: { display: false } } 
+                }
+            });
+
+            // Heatmap Chart
+            heatmapChart = new Chart(heatmapCtx, {
+                type: 'matrix',
+                data: {
+                    datasets: [{
+                        label: 'Visitor Density',
+                        data: heatmapData,
+                        backgroundColor(ctx) {
+                            const value = ctx.dataset.data[ctx.dataIndex].v;
+                            const alpha = (value) / 100; // Map value 0-100 to alpha 0-1
+                            return `rgba(16, 185, 129, ${alpha})`; // Emerald color from Tailwind
+                        },
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 1,
+                        width: (ctx) => ctx.chart.chartArea.width / 20, // 20 columns
+                        height: (ctx) => ctx.chart.chartArea.height / 8, // 8 rows
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { display: false },
+                        y: { display: false }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title() { return '' },
+                                label(context) {
+                                    const v = context.dataset.data[context.dataIndex];
+                                    return `Density: ${v.v.toFixed(0)}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCharts() {
+            // Update line chart
+            attendanceChart.data.labels = dashboardData.map(d => d.day);
+            attendanceChart.data.datasets[0].data = dashboardData.map(d => d.attendance);
+            attendanceChart.update();
+
+            // Update heatmap chart
+            generateHeatmapData();
+            heatmapChart.data.datasets[0].data = heatmapData;
+            heatmapChart.update();
+        }
+        
+        // --- Data Export ---
+        function exportToCSV() {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Day,Condition,Temperature(C),Humidity(%),WindSpeed(m/s),SolarRadiation(W/m2),Attendance\r\n";
+            dashboardData.forEach(row => {
+                let csvRow = [row.day, row.condition, row.temperature, row.humidity, row.windSpeed, row.solarRadiation, row.attendance].join(",");
+                csvContent += csvRow + "\r\n";
+            });
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "park_attendance_data.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // --- Helpers ---
+        function animateValue(obj, start, end, duration, unit = '', format = 'int') {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                let currentValue = progress * (end - start) + start;
+
+                if (progress >= 1) currentValue = end;
+
+                if (format === 'float') {
+                    obj.textContent = currentValue.toFixed(1) + unit;
+                } else {
+                    obj.textContent = Math.floor(currentValue) + unit;
+                }
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // --- Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const refreshAllData = () => {
+                generateWeeklyData();
+                updateDashboard();
+            };
+
+            createCharts();
+            refreshAllData();
+            updateClock();
+
+            setInterval(refreshAllData, 30000);
+            setInterval(updateClock, 1000);
+
+            refreshButton.addEventListener('click', refreshAllData);
+            exportButton.addEventListener('click', exportToCSV);
+        });
+
+    </script>
 </body>
 </html>
